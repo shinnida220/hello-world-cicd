@@ -42,6 +42,15 @@ jobs:
           name: "Print Dev Name"
           command: "echo Developer Name: ${DEV_NAME}"
 
+  print-dev-name-using-multiline-command:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: "Print Dev Name"
+          command: |
+            echo Developer Name: ${DEV_NAME}
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -53,3 +62,4 @@ workflows:
           requires:
             - print-hello
       - print-dev-name
+      - print-dev-name-using-multiline-command
