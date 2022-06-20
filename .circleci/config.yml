@@ -93,7 +93,7 @@ jobs:
           pid: << pipeline.id >>
 
   job_with_error:
-    <<: &os_default
+    <<: *os_default
     steps:
       - run: return 1
 
