@@ -87,7 +87,8 @@ workflows:
               paths:
                 - output.txt
       - print_output_file:
-          requires:
-            - save_hello_world_output
           - attach_workspace:
               at: /tmp/workspace
+          requires:
+            - save_hello_world_output
+          
