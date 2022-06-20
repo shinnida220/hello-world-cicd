@@ -34,32 +34,28 @@ jobs:
           command: "echo Hello, World!"
 
   print-hello:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *os_default
     steps:
       - run:
           name: "Print Hello"
           command: "echo Hello"
 
   print-world:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *os_default
     steps:
       - run:
           name: "Print Hello"
           command: "echo World"
 
   print-dev-name:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *os_default
     steps:
       - run:
           name: "Print Dev Name"
           command: "echo Developer Name: ${DEV_NAME}"
 
   print-dev-name-using-multiline-command:
-    docker:
-      - image: cimg/base:stable
+    <<: *os_default
     steps:
       - run:
           name: "Print Dev Name"
@@ -67,8 +63,7 @@ jobs:
             echo Developer Name: ${DEV_NAME}
 
   save_hello_world_output:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *os_default
     steps:
       - run: echo "text to output here" > ~/output.txt
       - persist_to_workspace:
@@ -77,16 +72,14 @@ jobs:
             - output.txt
 
   print_output_file:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *os_default
     steps:
       - attach_workspace:
           at: ~/
       - run: cat ~/output.txt
 
   print_pipeline_id_using_command:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *os_default
     steps:
       - print_pipeline_id
       - print_pipeline_id_using_pv:
