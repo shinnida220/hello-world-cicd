@@ -96,6 +96,10 @@ jobs:
     <<: *os_default
     steps:
       - run: return 1
+      - run:
+          name: On Error
+          command: echo "Hello Error"
+          when: on_fail
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
