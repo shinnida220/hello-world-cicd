@@ -62,7 +62,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - tmp/dir/output.txt
+            - output.txt
 
   print_output_file:
     docker:
@@ -73,7 +73,7 @@ jobs:
       - run:
           name: "Print Content of output.txt"
           command: |
-            cat tmp/dir/output.txt
+            cat output.txt
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
