@@ -59,11 +59,17 @@ jobs:
           name: "Save some text to a file"
           command: |
             echo "text to output here" > output.txt
+      - persist_to_workspace:
+          root: /tmp/dir
+          paths:
+            - output.txt
 
   print_output_file:
     docker:
       - image: circleci/node:13.8.0
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
           name: "Print Content of output.txt"
           command: |
@@ -81,14 +87,7 @@ workflows:
             - print-hello
       - print-dev-name
       - print-dev-name-using-multiline-command
-      - save_hello_world_output:
-          - persist_to_workspace:
-              root: /tmp/dir
-              paths:
-                - output.txt
+      - save_hello_world_output
       - print_output_file:
-          - attach_workspace:
-              at: /tmp/workspace
           requires:
             - save_hello_world_output
-          
