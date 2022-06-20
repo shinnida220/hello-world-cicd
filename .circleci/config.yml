@@ -2,10 +2,14 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+os_default: &os_default
+  docker:
+    - image: circleci/node:13.8.0
+
 commands:
   print_pipeline_id:
     steps:
-      - run: "echo PipelineID: ${CIRCLE_WORKFLOW_ID}"
+      - run: "echo WorkflowID: ${CIRCLE_WORKFLOW_ID}"
 
   print_pipeline_id_using_pv:
     parameters:
@@ -20,8 +24,7 @@ jobs:
   say-hello:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/base:stable
+    <<: *os_default
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
@@ -89,6 +92,11 @@ jobs:
       - print_pipeline_id_using_pv:
           pid: << pipeline.id >>
 
+  job_with_error:
+    <<: &os_default
+    steps:
+      - run: return 1
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -106,3 +114,4 @@ workflows:
           requires:
             - save_hello_world_output
       - print_pipeline_id_using_command
+      - job_with_error
