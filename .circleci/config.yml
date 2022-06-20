@@ -82,12 +82,12 @@ workflows:
       - print-dev-name
       - print-dev-name-using-multiline-command
       - save_hello_world_output:
-          persist_to_workspace:
-            root: /tmp/dir
-            paths:
-              - output.txt
+          - persist_to_workspace:
+              root: /tmp/dir
+              paths:
+                - output.txt
       - print_output_file:
           requires:
             - save_hello_world_output
-          attach_workspace:
-            at: /tmp/workspace
+          - attach_workspace:
+              at: /tmp/workspace
